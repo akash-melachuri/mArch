@@ -19,7 +19,11 @@ module.exports = {
             {
                 test: /\.(ico)$/i,
                 type: 'asset/resource',
-            }
+            },
+            {
+                test: /\.(glsl|vs|fs)$/,
+                loader: 'shader-loader'
+            },
         ]
     }
 };
