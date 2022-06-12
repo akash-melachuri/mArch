@@ -6,7 +6,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             favicon: 'src/favicon.ico',
-            title: 'mArch'
+            title: 'mArch',
+            template: 'src/index.html'
         })
     ],
     output: {

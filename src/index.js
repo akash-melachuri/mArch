@@ -1,26 +1,29 @@
 import * as THREE from 'three';
 
+var width = window.innerWidth;
+var height = window.innerHeight;
+
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
+camera.position.z = 1;
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+const canvas = document.querySelector('canvas')
+const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+renderer.setSize(width, height)
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+const geometry = new THREE.PlaneGeometry(width, height);
+const material = new THREE.ShaderMaterial({
+    vertexShader: require('./vert.glsl'),
+    fragmentShader: require('./frag.glsl'),
+});
+const surface = new THREE.Mesh(geometry, material);
+scene.add(surface);
 
-camera.position.z = 5;
 
 function animate() {
-    requestAnimationFrame( animate );
+    requestAnimationFrame(animate);
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
 };
 
 animate();
