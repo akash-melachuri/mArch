@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "http-server": "^14.1.1",
     "three": "^0.141.0"
   },
   "name": "mArch",
